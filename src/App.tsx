@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import data from "./data.json";
 import "./App.css";
 import CustomerSelection from "./components/CustomerSelection";
@@ -12,8 +12,7 @@ import {
   getAssetAssociatedRisk,
 } from "./utils";
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
-
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+import { ColorModeContext } from "./constants";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -41,7 +40,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log('aaaa')
     const customerDataCopy = [...data as Customer[]];
     customerDataCopy.forEach((el) => {
       el.name = el.firstName + " " + el.lastName;

@@ -83,35 +83,55 @@ const firstAsset = demoData.portfolios[0].assets[0];
 
 describe("finance functions", () => {
   it("should test getAssetAssociatedRisk", () => {
-    expect(getAssetAssociatedRisk(firstAsset.quantity, firstAsset.associatedRiskPerAsset)).toEqual(7800000);
+    expect(
+      getAssetAssociatedRisk(
+        firstAsset.quantity,
+        firstAsset.associatedRiskPerAsset
+      )
+    ).toEqual(7800000);
   });
 
   it("should test getAssetCapitalGain", () => {
-    expect(getAssetCapitalGain(firstAsset.quantity, firstAsset.capitalGainPerAsset)).toEqual(1376000);
+    expect(
+      getAssetCapitalGain(firstAsset.quantity, firstAsset.capitalGainPerAsset)
+    ).toEqual(1376000);
   });
 
   // Asset Total Value === (quantity * valuePerAsset) + asset capital gain
   it("should test getAssetTotalValue", () => {
-    expect(getAssetTotalValue(firstAsset.quantity, firstAsset.valuePerAsset, firstAsset.capitalGainPerAsset)).toEqual(28006880);
+    expect(
+      getAssetTotalValue(
+        firstAsset.quantity,
+        firstAsset.valuePerAsset,
+        firstAsset.capitalGainPerAsset
+      )
+    ).toEqual(28006880);
   });
 
   // Portfolio Associated Risk === sum of all assets’ associated risks
   it("should test getPortofolioAssociatedRisk", () => {
-    expect(getPortofolioAssociatedRisk(demoData.portfolios[0].assets)).toEqual(63500);
-    expect(getPortofolioAssociatedRisk(demoData.portfolios[1].assets)).toEqual(8400);
+    expect(getPortofolioAssociatedRisk(demoData.portfolios[0].assets)).toEqual(
+      63500
+    );
+    expect(getPortofolioAssociatedRisk(demoData.portfolios[1].assets)).toEqual(
+      8400
+    );
   });
 
   // Portfolio Capital Gain === sum of all assets’ capital gains
   it("should test getPortofolioCapitalGain", () => {
-    expect(getPortofolioCapitalGain(demoData.portfolios[0].assets)).toEqual(8370);
-    expect(getPortofolioCapitalGain(demoData.portfolios[1].assets)).toEqual(23200);
+    expect(getPortofolioCapitalGain(demoData.portfolios[0].assets)).toEqual(
+      8370
+    );
+    expect(getPortofolioCapitalGain(demoData.portfolios[1].assets)).toEqual(
+      23200
+    );
   });
 
   // Portfolio Total Value === portfolio capital gain + sum of all assets’ total value
   it("should test getPortofolioTotalValue", () => {
     expect(getPortofolioTotalValue(demoData.portfolios[0])).toEqual(49459940);
     expect(getPortofolioTotalValue(demoData.portfolios[1])).toEqual(41856400);
-    
   });
 
   // Customer Aggregated Net Worth === sum of all portfolios’ total values
@@ -121,6 +141,8 @@ describe("finance functions", () => {
 
   // Customer Aggregated Capital Gain === sum of all portfolios’ capital gain
   it("should test getCustomerAggregatedCapitalGain", () => {
-    expect(getCustomerAggregatedCapitalGain(demoData.portfolios)).toEqual(31570);
+    expect(getCustomerAggregatedCapitalGain(demoData.portfolios)).toEqual(
+      31570
+    );
   });
 });

@@ -45,10 +45,10 @@ export const CustomerSelection = ({ data }: { data: Customer[] }) => {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      {/* <Header
+      <Header
         input={input}
         onChange={(event) => setInput(event.target.value)}
-      /> */}
+      />
       <Paper sx={{ width: "100%", borderRadius: 0 }}>
         <TableContainer>
           <Table

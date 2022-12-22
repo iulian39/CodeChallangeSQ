@@ -1,4 +1,7 @@
+import { createContext } from "react";
 import { AssetTableHeaders, CustomerTableHeaders } from "./interfaces";
+
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export const customerTableHeaders: CustomerTableHeaders[] = [
   { key: "name", label: "Customer Name" },
