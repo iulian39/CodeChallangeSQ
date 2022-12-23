@@ -56,7 +56,8 @@ function App() {
           el.portfolios
         );
         el.aggregatedCapitalGain = getCustomerAggregatedCapitalGain(
-          el.portfolios
+          el.portfolios,
+          rates
         );
         el.portfolios.forEach((portfolios) => {
           portfolios.assets.forEach((asset) => {

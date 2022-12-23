@@ -106,50 +106,50 @@ describe("finance functions", () => {
         firstAsset.valuePerAsset,
         firstAsset.capitalGainPerAsset
       )
-    ).toEqual(28006880);
+    ).toEqual(29376000);
   });
 
   // Portfolio Associated Risk === sum of all assets’ associated risks
   it("should test getPortofolioAssociatedRisk", () => {
     expect(getPortofolioAssociatedRisk(demoData.portfolios[0].assets)).toEqual(
-      63500
+      15640000
     );
     expect(getPortofolioAssociatedRisk(demoData.portfolios[1].assets)).toEqual(
-      8400
+      3039000
     );
   });
 
   // Portfolio Capital Gain === sum of all assets’ capital gains
   it("should test getPortofolioCapitalGain", () => {
-    expect(getPortofolioCapitalGain(demoData.portfolios[0].assets)).toEqual(
-      8370
-    );
-    expect(getPortofolioCapitalGain(demoData.portfolios[1].assets)).toEqual(
-      23200
-    );
+    expect(
+      getPortofolioCapitalGain(demoData.portfolios[0].assets, rates)
+    ).toEqual(1787276.1904761905);
+    expect(
+      getPortofolioCapitalGain(demoData.portfolios[1].assets, rates)
+    ).toEqual(7526190.476190476);
   });
 
   // Portfolio Total Value === portfolio capital gain + sum of all assets’ total value
   it("should test getPortofolioTotalValue", () => {
     expect(getPortofolioTotalValue(demoData.portfolios[0], rates)).toEqual(
-      48126279.047619045
+      51684419.047619045
     );
     expect(getPortofolioTotalValue(demoData.portfolios[1], rates)).toEqual(
-      40574280.952380955
+      55580952.38095238
     );
   });
 
   // Customer Aggregated Net Worth === sum of all portfolios’ total values
   it("should test getCustomerAggregatedNW", () => {
     expect(getCustomerAggregatedNW(demoData.portfolios, rates)).toEqual(
-      88700560
+      107265371.42857143
     );
   });
 
   // Customer Aggregated Capital Gain === sum of all portfolios’ capital gain
   it("should test getCustomerAggregatedCapitalGain", () => {
-    expect(getCustomerAggregatedCapitalGain(demoData.portfolios)).toEqual(
-      31570
-    );
+    expect(
+      getCustomerAggregatedCapitalGain(demoData.portfolios, rates)
+    ).toEqual(9313466.666666666);
   });
 });

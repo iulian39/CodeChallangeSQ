@@ -48,22 +48,34 @@ export const getAssetTotalValue = (
   quantity: number,
   valuePerAsset: number,
   capitalGainPerAsset: string
-) => quantity * valuePerAsset + parseInt(capitalGainPerAsset);
+) =>
+  quantity * valuePerAsset + getAssetCapitalGain(quantity, capitalGainPerAsset);
 
 // Portfolio Associated Risk === sum of all assets’ associated risks
 export const getPortofolioAssociatedRisk = (list: Asset[]) =>
-  list.reduce((partialSum, el) => partialSum + el.associatedRiskPerAsset, 0);
+  list.reduce(
+    (partialSum, el) =>
+      partialSum +
+      getAssetAssociatedRisk(el.quantity, el.associatedRiskPerAsset),
+    0
+  );
 
 // Portfolio Capital Gain === sum of all assets’ capital gains
-export const getPortofolioCapitalGain = (list: Asset[]) =>
+export const getPortofolioCapitalGain = (list: Asset[], rates: rateObject) =>
   list.reduce(
-    (partialSum, el) => partialSum + parseInt(el.capitalGainPerAsset),
+    (partialSum, el) =>
+      partialSum +
+      getAssetCapitalGain(el.quantity, el.capitalGainPerAsset) /
+        rates[el.currency],
     0
   );
 
 // Portfolio Total Value === portfolio capital gain + sum of all assets’ total value
-export const getPortofolioTotalValue = (portofolio: Portfolio, rates: rateObject) =>
-  getPortofolioCapitalGain(portofolio.assets) +
+export const getPortofolioTotalValue = (
+  portofolio: Portfolio,
+  rates: rateObject
+) =>
+  getPortofolioCapitalGain(portofolio.assets, rates) +
   portofolio.assets.reduce(
     (partialSum, el) =>
       partialSum +
@@ -77,16 +89,22 @@ export const getPortofolioTotalValue = (portofolio: Portfolio, rates: rateObject
   );
 
 // Customer Aggregated Net Worth === sum of all portfolios’ total values
-export const getCustomerAggregatedNW = (portofolios: Portfolio[], rates: rateObject) =>
+export const getCustomerAggregatedNW = (
+  portofolios: Portfolio[],
+  rates: rateObject
+) =>
   portofolios.reduce(
     (partialSum, el) => partialSum + getPortofolioTotalValue(el, rates),
     0
   );
 
 // Customer Aggregated Capital Gain === sum of all portfolios’ capital gain
-export const getCustomerAggregatedCapitalGain = (portofolios: Portfolio[]) =>
+export const getCustomerAggregatedCapitalGain = (
+  portofolios: Portfolio[],
+  rates: rateObject
+) =>
   portofolios.reduce(
-    (partialSum, el) => partialSum + getPortofolioCapitalGain(el.assets),
+    (partialSum, el) => partialSum + getPortofolioCapitalGain(el.assets, rates),
     0
   );
 
