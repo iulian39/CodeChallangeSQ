@@ -1,3 +1,4 @@
+import { rateObject } from "easy-currencies/dist/converter";
 import {
   Asset,
   AssetKeys,
@@ -61,19 +62,24 @@ export const getPortofolioCapitalGain = (list: Asset[]) =>
   );
 
 // Portfolio Total Value === portfolio capital gain + sum of all assets’ total value
-export const getPortofolioTotalValue = (portofolio: Portfolio) =>
+export const getPortofolioTotalValue = (portofolio: Portfolio, rates: rateObject) =>
   getPortofolioCapitalGain(portofolio.assets) +
   portofolio.assets.reduce(
     (partialSum, el) =>
       partialSum +
-      getAssetTotalValue(el.quantity, el.valuePerAsset, el.capitalGainPerAsset),
+      getAssetTotalValue(
+        el.quantity,
+        el.valuePerAsset,
+        el.capitalGainPerAsset
+      ) /
+        rates[el.currency],
     0
   );
 
 // Customer Aggregated Net Worth === sum of all portfolios’ total values
-export const getCustomerAggregatedNW = (portofolios: Portfolio[]) =>
+export const getCustomerAggregatedNW = (portofolios: Portfolio[], rates: rateObject) =>
   portofolios.reduce(
-    (partialSum, el) => partialSum + getPortofolioTotalValue(el),
+    (partialSum, el) => partialSum + getPortofolioTotalValue(el, rates),
     0
   );
 

@@ -50,7 +50,7 @@ export const CustomerSelection = ({ data }: { data: Customer[] }) => {
         onChange={(event) => setInput(event.target.value)}
       />
       <Paper sx={{ width: "100%", borderRadius: 0 }}>
-        <TableContainer>
+        <TableContainer component={Paper}>
           <Table
             sx={{ minWidth: 700 }}
             aria-labelledby="tableTitle"

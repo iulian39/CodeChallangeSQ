@@ -10,6 +10,8 @@ import {
   TableBody,
   Button,
   styled,
+  Paper,
+  TableContainer,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -44,9 +46,19 @@ const CustomerItem = (props: Customer) => {
           {name}
         </TableCell>
         <TableCell align="center">{riskProfile}</TableCell>
-        <TableCell align="center">{aggregatedNetWorth}</TableCell>
+        <TableCell align="center">
+          {aggregatedNetWorth.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}{" "}
+          EUR
+        </TableCell>
         <TableCell align="center">{aggregatedRestrictionStatus}</TableCell>
-        <TableCell align="center">{aggregatedCapitalGain}</TableCell>
+        <TableCell align="center">
+          {aggregatedCapitalGain.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}{" "}
+          EUR
+        </TableCell>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -72,52 +84,56 @@ const CustomerItem = (props: Customer) => {
               >
                 Portfolios
               </Typography>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "500" }}>Id</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "500" }}>Name</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "500" }}>
-                        Restriction Status
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "500" }}>Assets</Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {portfolios.map((el) => (
-                    <TableRow
-                      key={el.portfolioId}
-                      selected={el.portfolioId === modalOpen}
-                    >
-                      <TableCell>{el.portfolioId}</TableCell>
-                      <TableCell>{el.portfolioName}</TableCell>
-                      <TableCell>{el.restrictionStatus}</TableCell>
+              <TableContainer component={Paper}>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
                       <TableCell>
-                        <Button
-                          onClick={() => setModalOpen(el.portfolioId)}
-                          variant="text"
-                          sx={{ paddingLeft: 0 }}
-                        >
-                          Details
-                        </Button>
-                        <AssetsModal
-                          modalOpen={!!modalOpen}
-                          setModalOpen={setModalOpen}
-                          data={el.assets}
-                        />
+                        <Typography sx={{ fontWeight: "500" }}>Id</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "500" }}>Name</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "500" }}>
+                          Restriction Status
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ fontWeight: "500" }}>
+                          Assets
+                        </Typography>
                       </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {portfolios.map((el) => (
+                      <MuiTableRow
+                        key={el.portfolioId}
+                        selected={el.portfolioId === modalOpen}
+                      >
+                        <TableCell>{el.portfolioId}</TableCell>
+                        <TableCell>{el.portfolioName}</TableCell>
+                        <TableCell>{el.restrictionStatus}</TableCell>
+                        <TableCell>
+                          <Button
+                            onClick={() => setModalOpen(el.portfolioId)}
+                            variant="text"
+                            sx={{ paddingLeft: 0 }}
+                          >
+                            Details
+                          </Button>
+                          <AssetsModal
+                            modalOpen={!!modalOpen}
+                            setModalOpen={setModalOpen}
+                            data={el.assets}
+                          />
+                        </TableCell>
+                      </MuiTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Box>
           </Collapse>
         </TableCell>

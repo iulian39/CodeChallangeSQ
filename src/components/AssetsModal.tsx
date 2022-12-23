@@ -96,12 +96,12 @@ const AssetsModal = ({
                   <TableCell align="center">{el.location}</TableCell>
                   <TableCell align="center">{el.quantity}</TableCell>
                   <TableCell align="center">
-                    {el.total_value + " " + el.currency}
+                    {el.total_value.toLocaleString() + " " + el.currency}
                   </TableCell>
                   <TableCell align="center">
-                    {el.total_capital_gain + " " + el.currency}
+                    {el.total_capital_gain.toLocaleString() + " " + el.currency}
                   </TableCell>
-                  <TableCell align="center">{el.associatedAssetRisk}</TableCell>
+                  <TableCell align="center">{el.associatedAssetRisk.toLocaleString()}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

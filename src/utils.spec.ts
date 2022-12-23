@@ -80,6 +80,7 @@ const demoData: Customer = {
   ],
 };
 const firstAsset = demoData.portfolios[0].assets[0];
+const rates = { EUR: 1, USD: 1.05, GBP: 0.9, CHF: 0.99 };
 
 describe("finance functions", () => {
   it("should test getAssetAssociatedRisk", () => {
@@ -130,13 +131,19 @@ describe("finance functions", () => {
 
   // Portfolio Total Value === portfolio capital gain + sum of all assets’ total value
   it("should test getPortofolioTotalValue", () => {
-    expect(getPortofolioTotalValue(demoData.portfolios[0])).toEqual(49459940);
-    expect(getPortofolioTotalValue(demoData.portfolios[1])).toEqual(41856400);
+    expect(getPortofolioTotalValue(demoData.portfolios[0], rates)).toEqual(
+      48126279.047619045
+    );
+    expect(getPortofolioTotalValue(demoData.portfolios[1], rates)).toEqual(
+      40574280.952380955
+    );
   });
 
   // Customer Aggregated Net Worth === sum of all portfolios’ total values
   it("should test getCustomerAggregatedNW", () => {
-    expect(getCustomerAggregatedNW(demoData.portfolios)).toEqual(91316340);
+    expect(getCustomerAggregatedNW(demoData.portfolios, rates)).toEqual(
+      88700560
+    );
   });
 
   // Customer Aggregated Capital Gain === sum of all portfolios’ capital gain
